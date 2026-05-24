@@ -1,0 +1,2356 @@
+[
+  {
+    "type": "paragraph",
+    "section": "General",
+    "subsection": "General",
+    "content": "ISIS technical report series, Vol. 2001-15, October 2001"
+  },
+  {
+    "type": "heading",
+    "section": "Document Understanding for a Broad Class of Documents",
+    "subsection": "Document Understanding for a Broad Class of Documents",
+    "level": 1,
+    "content": "Document Understanding for a Broad Class of Documents"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding for a Broad Class of Documents",
+    "subsection": "Document Understanding for a Broad Class of Documents",
+    "content": "Leon Todoran and Marcel Worring Intelligent Sensory Information Systems Department of Computer Science University of Amsterdam"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding for a Broad Class of Documents",
+    "subsection": "Document Understanding for a Broad Class of Documents",
+    "content": "The Netherlands"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding for a Broad Class of Documents",
+    "subsection": "Document Understanding for a Broad Class of Documents",
+    "content": "Marco Aiello and Christof Monz"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding for a Broad Class of Documents",
+    "subsection": "Document Understanding for a Broad Class of Documents",
+    "content": "Institute for Logic, Language and Computation, University of Amsterdam, The Netherlands"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding for a Broad Class of Documents",
+    "subsection": "Document Understanding for a Broad Class of Documents",
+    "content": "We present a document analysis system able to assign logical la-bels and extract reading order in a broad set of documents. All information sources, from geometric features and spatial relations to the textual features and content are employed in the analy-sis. To deal effectively with these information sources, we define a document representation general and flexible enough to repre-sent complex documents. To handle such a broad document class, it uses generic document knowledge only. The generic document knowledge used is identified explicitly. Our system integrates com-ponents based on computer vision, artificial intelligence, and natu-ral language processing techniques. Experimental results for each component and for the entire system are presented. The per-formance of the system is good, especially when considering the variety of documents in the collection."
+  },
+  {
+    "type": "heading",
+    "section": "Contents",
+    "subsection": "Contents",
+    "level": 1,
+    "content": "Contents"
+  },
+  {
+    "type": "paragraph",
+    "section": "Contents",
+    "subsection": "Contents",
+    "content": "Intelligent Sensory Information Systems"
+  },
+  {
+    "type": "paragraph",
+    "section": "Contents",
+    "subsection": "Contents",
+    "content": "Department of Computer Science University of Amsterdam Kruislaan 403"
+  },
+  {
+    "type": "heading",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "level": 1,
+    "content": "1098 SJ Amsterdam The Netherlands"
+  },
+  {
+    "type": "paragraph",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "content": "tel: +31 20 525 7463"
+  },
+  {
+    "type": "paragraph",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "content": "fax: +31 20 525 7490"
+  },
+  {
+    "type": "paragraph",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "content": "http://www.science.uva.nl/research/isis"
+  },
+  {
+    "type": "label",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "content": "Corresponding author:"
+  },
+  {
+    "type": "paragraph",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "content": "Leon Todoran"
+  },
+  {
+    "type": "paragraph",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "content": "tel: +31(20)525 7555"
+  },
+  {
+    "type": "paragraph",
+    "section": "1098 SJ Amsterdam The Netherlands",
+    "subsection": "1098 SJ Amsterdam The Netherlands",
+    "content": "todoran@science.uva.nl http://www.science.uva.nl/~todoran"
+  },
+  {
+    "type": "heading",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "level": 1,
+    "content": "Introduction"
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Document analysis can be viewed as reversing the process of document authoring. It is therefore important to consider the choices an author makes. In the creation process, the author starts with a rough idea about the content. The author then structures his thoughts by considering the logical organization of the material: which are the chapters and what is the intended reading order. When the final digital doc-ument is printed on paper, the logical structure of the document is lost. The author has, however, the possibility to encode some of the logical information using layout typesetting conventions, e.g., use of a specific font size, style and arrangement on the page. Therefore, the layout structure of a printed document carries, besides the artistic message, information about the logical structure. In fact, for simple documents, a human reader can determine the logical structure from layout and typesetting information only. In complex documents, the human reader completes his understanding of the document structure by reading the text. Therefore, to reverse the authoring process for document analysis purposes, both structure and content needs attention."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "The information about generic logical structure needed in document understand-ing is called document knowledge. The knowledge is encoded as a set of layout and typesetting conventions for a document class."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "If the doocument knowledge is specific for a narrow class of documents it is called document class speciﬁc knowledge, for short speciﬁc knowledge. For a set consisting of a broad variety of documents, one can find the part of document knowledge common to all of them. This is called document class independent knowledge [6] or generic knowledge."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Obviously, a system will be more effective in document understanding, when it uses more knowledge about the document class. The issue is to differentiate between specific and generic knowledge. A system that has hard-coded all knowledge about a given class of documents will understand that class of documents only. A robust system able to process any kind of document should first exploit the generic knowl-edge to classify the document to a certain class [24]. From there specific knowledge should be used."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Using the above, document understanding systems presented in literature can be classified as follows:"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "simple systems able to process one specific document class [7, 8, 14];"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "systems processing specific document classes, able to adapt for processing sim-ilar document classes [28, 21, 15];"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "systems able to process a specific complex document class [27, 20];"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "systems able to process a broad class of complex documents [1, 26, 11]."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "We are interested in the last category of systems. The design of a generic system to process any class of documents is still a challenge."
+  },
+  {
+    "type": "label",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "In our opinion such a system should:"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "use a document representation able to capture the most complex situations;"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "use all information sources available:"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "geometric information: positioning, spatial relations, global information;"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "content information: textual features, lexical information;"
+  },
+  {
+    "type": "bullet",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "be adaptable do different document classes;"
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Let us now consider some existing document understanding systems in more detail and evaluate them according to the criteria posed."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Systems developed for specific limited domain classes as mail automation, form processing and processing of business letters [7, 8], report good results. They im-plicitly or explicitly use specific knowledge. Cesarini et al. in [7] present a tax-form processing system that uses specific knowledge and user interaction. The document representation is based on attributed relational graphs, which allow an accurate and flexible representation of the form class."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Lee [14] describes a systems that analyses journals from IEEE, specifically TPAMI. The specific knowledge is hardcoded in rules and threshold values. Therefore it is hard to adapt their system to other document classes. They report good results for processing documents from journals of the IEEE, other than TPAMI, which have the same geometric characteristics."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Walischewski [28] presents a dedicated system to process business letters. Given the knowledge for a class, and a training set, the system can adapt to process this new document class. His document representation based on an attributed directed graph and the spatial relations used are appropriate for processing more complex generic documents. No textual information is used."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "More adaptable systems use learning modules to extract from the document knowledge the set of transformation rules that can be inverted to map layout into logical structure. Such systems are presented by Sainz and Dimitriadis [21] and Li and Ng [15]. Again, their systems ignore the important role of the textual content. Other systems were built to process more complex, multi-article documents like newspapers. One example here is the system developed by Tsujimoto and Asada"
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "[27]; which is tuned to process regular multi-column black-and-white papers. Both for layout and logical structure detection, domain knowledge is hard-coded in trans-formation rules. The use of a tree based representation for the document restricts the class of documents that can be processed. Niyogi presents a system [20] that uses explicitly both specific and generic knowledge to process news-papers. Tex-tual content is not taken into account. The document representation is based on XY-trees [19] which is not able to represent more complex documents."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "Klink [11] uses explicitly both specific and generic knowledge to process different classes of document exemplified by business letters and technical papers. Textual features are considered in his classification process. His system is limited by the use of a tree representation for the documents."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "In this paper, we make a step towards generality of analysis. On this basis we develop a graph-based document model similar to [7] but adapted to represent more"
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "complex document structures. Unlike other document models, the model is not re-stricted to a regular layout where overlap is not present. A document understanding system that uses the generic knowledge on both layout and textual content. Previous work related to this paper has been presented in [1] and [26]."
+  },
+  {
+    "type": "paragraph",
+    "section": "Introduction",
+    "subsection": "Introduction",
+    "content": "The paper is organized as follows: in the next section we describe the document representation model. In Section 3 we present our document understanding method in depth. Performed experiments are presented in Section 4 and discussed in Section 5."
+  },
+  {
+    "type": "heading",
+    "section": "Document description",
+    "subsection": "Document description",
+    "level": 1,
+    "content": "Document description"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document description",
+    "subsection": "Document description",
+    "content": "Our purpose is to process a broad class of documents. Therefore, we present in this section a document model generic and flexible enough to capture the most complex document structures. We then consider descriptors for the content and structure of the document based on the document model."
+  },
+  {
+    "type": "heading",
+    "section": "The document model",
+    "subsection": "The document model",
+    "level": 1,
+    "content": "The document model"
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "Models for document representation need at least two distinct structures: one for layout information - to encode the presentation of the document and one for logical information - organizing the content into logical entities. Usually models allow for only one layout structure per document page and one logical structure per docu-ment. Complex documents, however, require several views on both the layout and logical information."
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "In our model, a document D is a set G of layout or geometric structures and a set L of logical structures:"
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "D = ⟨G, L⟩."
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "The set of layout structures G is defined as a collection of views G = {g1, ..., gn}. The layout structure gi is defined as a set Ogi of geometric document objects and a set Rgi of geometric relations among them:"
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "gi = ⟨Ogi, Rgi⟩."
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "Hence, each geometric relation is represented as a graph. The vertices are the document objects and an edge represents the existence, and possibly the value, of a named relation between the two document objects. This graph can be a tree for a simple relation, but in general, it is a cyclic directed graph."
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "The set of logical structures L is defined in a similar way as a collection of views: L = {l1, ..., lm}. A logical structure li is defined as a set Oli of logical document objects and a set Rli of logical relations:"
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "li = ⟨Oli, Rli⟩."
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "The set of logical document objects Oli in view i holds the content of each el-ement and the logical meaning represented as a label. The logical structures are"
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "represented as weighted graphs."
+  },
+  {
+    "type": "paragraph",
+    "section": "The document model",
+    "subsection": "The document model",
+    "content": "In the following subsections we go into further detail, exemplifying the document objects and relations considered in the geometric and the logical structure."
+  },
+  {
+    "type": "heading",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "level": 1,
+    "content": "Document object description"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "Document objects are the basic elements used in document representation. The content is part of the document objects. As defined in the document model, the document objects are part of both geometric and logical structures."
+  },
+  {
+    "type": "paragraph",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "For this paper, we consider picture and text document objects. Pictures are only considered as a whole. Different granularities for text elements can be considered, like characters, words or text-blocks. In this paper we consider for text a granularity of text-blocks, as they are the smallest entities carrying a logical meaning which are not trivial for reading order determination."
+  },
+  {
+    "type": "paragraph",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "The shape of the document objects is assumed to be rectangular. For more complex shapes, we simply compute the bounding box < x1, y1, x2, y2 > and use that in further analysis."
+  },
+  {
+    "type": "paragraph",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "A description of the layout using content information and the positioning of document objects on a page (bounding boxes) is sufficient to reproduce the original document image. Therefore, to describe a geometric document object, two main categories of features are used:"
+  },
+  {
+    "type": "bullet",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "geometric features;"
+  },
+  {
+    "type": "bullet",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "content features;"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "For each geometric document-object a set of features is determined. This feature vector, is selected such that it describes, as accurately as possible, the instantiation of a document in a class. The way we choose the actual features is described in Section 3."
+  },
+  {
+    "type": "paragraph",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "To describe the content of documents in a broad document class, generic features are required. The features are the aspect ratio, the area ratio (relative to page area), font size ratio (relative to the font size most frequently used in the document) and font style, content size."
+  },
+  {
+    "type": "paragraph",
+    "section": "Document object description",
+    "subsection": "Document object description",
+    "content": "For a large heterogeneous collection of documents there is a limited number of logical document objects common to all of them [18]. Therefore only the following textual document objects are considered as logical labels: Title, Body, Caption and Page Number."
+  },
+  {
+    "type": "heading",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "level": 1,
+    "content": "Layout Structure Description"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Besides the layout description presented above which is needed for reproduction, more explicit geometric relations are needed for understanding the layout. These geometric relations fall into two major classes:"
+  },
+  {
+    "type": "bullet",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "the global arrangement of objects on the page;"
+  },
+  {
+    "type": "bullet",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "the spatial relations between objects on the page."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "For representation of spatial relations between objects represented by their bound-ing box, we use qualitative relations. First, consider the extension of Allen’s interval relations [2], which are originally devised for temporal intervals, to two dimensions. On both the X and the Y axis the thirteen relations: precedes, meets, overlaps, starts, during, finishes, equals , and their inverses are considered. Abbreviations of these interval relations used in the rest of the paper are p, m, o, s, d, f, e, pi, mi, oi, si, di, fi, where the last six are the inverses of the first six respectively. An extensive study of the models behind the two dimensional extensions of Allen’s interval relations can be found in [5]."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "ExactTBRR"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Precedes_x"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "TTT  T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "x2x2x1x1b"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xx1122a"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xx1122a < xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "x1x2"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "a < xb -T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Meets_x"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xa = xba"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xb -T  xa"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": " xb +T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "21121"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Overlaps_x xa <xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xa < xb -T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "1111"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xb <xa <xbxb +T< xa < xb -T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "122a"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "122"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Starts_x xa =xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "a"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xb -T  xa"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": " xb +T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "11111"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xa < xbxa < xb -T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "2222"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "During_x xa > xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "a"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xa > xb +T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "1111"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xa < xbxa < xb -T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "2222"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Finishes_x xa > xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "axa > xb + T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "1111"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xa = xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xb -T  xa"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": " xb +T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "22222"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Equals_x xa = xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "a"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xb -T  xa"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": " xb +T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "bb11111"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xa = xb"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "xb -T  xa"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": " xb +T"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "22222"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Figure 1: The definitions of exact (left) and TBRR (right) rectangle model relations shown for the X coordinate only. In the middle one can see a pictorial explanation. For simplicity, only the direct relations are illustrated, the inverse relations are symmetric. The interval named b is “fixed”, while the interval named a is “sliding” from left to right showing their possible relative positions. The borders of size T are drawn at the endpoints of b, to illustrate the new versus the old relations."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Due to the inherent inaccuracy in document image analysis, relations based on exact coincidence of points are of little use. Thus, we make a shift in the interpre-tation of Allen’s relations. Instead of considering two interval extremes to be equal if they have the same coordinates, we consider them equal if they are closer than a fixed distance T. This can be dually seen as if the bounding boxes have a thick boundary. We name the set of 13 Allen’s relations thus interpreted Thick Boundary Rectangle Relations (TBRR)."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "The thickness of the boundary is the same for all objects in the document and is fixed with respect to the page size. There is a constraint on the T with respect to the size of the smallest document object: it should not exceed half the size of the shortest side of the smallest bounding box. Referring to Figure 1, one sees how the TBRR relations are more tolerant in the establishment of a relation between two intervals. For example, interval a meets interval b not only if xa2 = xb1, but also if xb1 − T ≤ xa2 ≤ xb1 + T ."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "With the TBRR interpretation Allen’s relation maintain the Jointly Exhaustive and Pairwise Disjoint property. Meaning that given two objects, one and only one relation for X and Y holds."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "To prove the Jointly Exhaustive property in the above statement, one has to show that the union of the thirteen TBRR relations is the whole IR line space. To prove the Pairwise Disjoint property, one has to show that the intersection of any two given sets of the thirteen is empty."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "In Figure 2 one can see the intervals (1,2,3,4 and 5) where the endpoints of the interval can be situated. The intervals 2 and 4 are closed, the others are open. In Table 1 one can see all possible relation achievable when positioning the endpoints of a in the allowed intervals."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "T TbT  T12345T TbT  T12345"
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Figure 2: The possible interval positions for the endpoints of the sliding interval a relative to the fixed interval b."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Consider the left endpoint of a to be situated in interval 1. The possible positions for the right endpoint of a are in the intervals 1,2,3,4 and 5. In case xa2 is also located in interval 1 then ∞ < xa1 < xb1 − 3T and xa1 + 2T < xa2 < xb1 − T hold. Writing down all these intervals one can easily see that the union of all the intervals where xa2 can be situated, is the part of IR situated to the right of xa1 + 2T . Because xa1 is sliding from left-to-right all of IR is covered. Therefore, the TBRR are jointly exhaustive. In a similar way, considering xa1 in all five possible intervals, one can see that the intervals where xa2 can be situated are disjoint."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "The TBRR is a set of qualitative relations representing the spatial relations of the document objects on the page. For every pair of document objects o1 and o2 one X and one Y interval relation hold. If one considers the pair in reversed order, the inverse interval relation holds. Therefore the directed graph gi representing these relations is complete."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "For global arrangement of document objects on the page, we use a neighborhood relation. Two document objects o1 and o2 are considered neighbors if they share an edge in the Voronoi diagram [3]. The Voronoi diagram is computed for the centers of gravity of the bounding boxes representing the document objects. This relation is stored in a weighted graph where the nodes are the document objects. An edge represents the existence of the neighborhood relation between them. The weight of the edge is the actual Euclidean distance between them."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Table 1: The possible relative interval position for the endpoints of the a interval."
+  },
+  {
+    "type": "table",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": [
+      [
+        "xa1",
+        "xa2",
+        "Relation"
+      ],
+      [
+        "1",
+        "12345",
+        "pm o fi di"
+      ],
+      [
+        "2",
+        "345",
+        "se si"
+      ],
+      [
+        "3",
+        "345",
+        "df oi"
+      ],
+      [
+        "4",
+        "5",
+        "mi"
+      ],
+      [
+        "5",
+        "5",
+        "pi"
+      ],
+      [
+        "IRφ",
+        "IRφ",
+        "JE (∪)PD (∩)"
+      ]
+    ]
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "Figure 3 shows an example of interval and neighborhood relations."
+  },
+  {
+    "type": "paragraph",
+    "section": "Layout Structure Description",
+    "subsection": "Layout Structure Description",
+    "content": "The layout representation we propose here captures all the essential information in a document required for further logical analysis."
+  },
+  {
+    "type": "heading",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "level": 1,
+    "content": "Logical Structure Description"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "For logical relations between document objects we consider a partial ordering relation named BeforeInReading which holds of two document objects if one is to be read before the other one. Note that this does not mean that it has to be read immediately before, but just that it is before in the reading order. The partial ordering leads to a total ordering among document objects which is the reading order."
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "Recall that only Body, Title, Page Number and Caption are permissible logical labels. Page Numbers are relevant for identifying pages of the document. They are not important for the reading order on a page. Captions, and their associated pictures, are read as a side step in the reading of the document. After consulting the caption, the main linear reading order continues. Therefore reading order is considered only among the Body and Title document objects."
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "In this paper we make the assumption that for a document page there is only one reading order. This is a limitation of our current system, as there are examples, for instance newspapers, where on a single page there are many independent articles, which can be read in any order."
+  },
+  {
+    "type": "table",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": [
+      [
+        "D"
+      ],
+      [
+        "E",
+        ""
+      ],
+      [
+        "F"
+      ]
+    ]
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "The positioning of document objects on a page"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "starts_x(D,A) precedes_i_y(D,A)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "IHGCBAIHGCBAoverlaps_x(D,B) precedes_i_y(D,B)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "during_i_x(D,C) precedes_i_y(D,C)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "starts_i_x(D,E) precedes_y(D,E)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "equals_x(D,F) precedes_y(D,F)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "precedes_x(D,G) overlaps_i_y(D,G)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "precedes_x(D,H) overlaps_y(D,H)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "precedes_x(D,I) precedes_y(D,I)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "ABCGDHEFIABCGDHEFIAIBo_x,pi_ys_x,pi_yp_x,p_yHCp_x,o_ydi_x,pi_yDp_x,oi_yGsi_x,p_ye_x,p_yFEAIBo_x,pi_ys_x,pi_yp_x,p_yHCp_x,o_ydi_x,pi_yDp_x,oi_yGsi_x,p_ye_x,p_yFEThe \"TBRR\" relations of document object D"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "AIBHC6070D65G50FEAIBHC6070D65G50FE"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "The Voronoi diagram for the centers of the document objects"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "The \"neighborhood\" relation"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical Structure Description",
+    "subsection": "Logical Structure Description",
+    "content": "Figure 3: Exemplification of the layout relations. The upper part shows the TBRR relations for all pairs where document object D is the first element of the pair. The bottom part shows the Voronoi diagram computed for centers of the document objects, and the neighborhood relation for all pairs with starting element D (solid) and other (dashed)."
+  },
+  {
+    "type": "heading",
+    "section": "Document Understanding",
+    "subsection": "Document Understanding",
+    "level": 1,
+    "content": "Document Understanding"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding",
+    "subsection": "Document Understanding",
+    "content": "Document analysis starts with the document image and ends with its complete logical structure. For this purpose two main steps are needed: one to extract the layout structure - called layout detection - and another one to determine the logical structure - called document understanding. Recall that document authoring is a non-reversible process. Hence, document knowledge is essential in the document analysis process."
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding",
+    "subsection": "Document Understanding",
+    "content": "Document UnderstandingDocument KnowledgeDocumentImageFeatures &Relations ExtractionObjectRelationsClassification  DetectionLayout StructureLogical StructureDocument UnderstandingDocument KnowledgeDocumentImageFeatures &Relations ExtractionObjectRelationsClassification  DetectionLayout StructureLogical StructureThe document knowledge is mainly used in document understanding. There are two main phases in document understanding. In the first phase, the layout document objects are grouped and classified as logical objects. Then, among logical document objects, logical relations are determined. In this paper we only consider the reading order as a logical relation. The whole process is sketched in Figure 4."
+  },
+  {
+    "type": "table",
+    "section": "Document Understanding",
+    "subsection": "Document Understanding",
+    "content": [
+      [
+        "Mapping Rules",
+        "Layout Arrangement Rules"
+      ]
+    ]
+  },
+  {
+    "type": "paragraph",
+    "section": "Document Understanding",
+    "subsection": "Document Understanding",
+    "content": "Figure 4: The main steps of document analysis, and the role of document knowledge."
+  },
+  {
+    "type": "heading",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "level": 1,
+    "content": "Document knowledge"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "As we aim to process a broad collection of documents we consider generic knowl-edge only. As a document consist of content and structure, the document generic knowledge used can be grouped in two main categories:"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "content mapping rules from logical to layout document objects:"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "titles are written in larger than common font size and/or in a non-regular style;"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "title objects usually consist of less than 3 lines;"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "a paragraph is written with a uniform regular font size and style;"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "the page number is located on the top or the bottom of the page;"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "the caption is a neighbor of a picture document object."
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "layout arrangement rules reflecting the logical structure:"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "in western culture the reading order is from left to right and from top to bottom;"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "the reading order is consistently either column or row oriented;"
+  },
+  {
+    "type": "bullet",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "paragraphs start with a capital letter, and end with a termination mark like a period;"
+  },
+  {
+    "type": "paragraph",
+    "section": "Document knowledge",
+    "subsection": "Document knowledge",
+    "content": "Even though there might be some exotic documents that do not obey the above rules, they form the basis four our document understanding system."
+  },
+  {
+    "type": "heading",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "level": 1,
+    "content": "Logical object classification"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "For every textual document object, the geometric features described in Section 2.2 are combined into a feature vector. At this point each document object is represented by a set of six features. The feature vector consists of continuous and enumerated values. We should, however, select a method that can deal with both continuos and enumerated values [22]."
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "Based on these features we assign one of the logical labels Caption, Body, Title or PageNumber to a document object. The problem of assigning a label to each doc-ument object is a standard statistical pattern recognition problem [10]. Therefore, we can use standard tools for this purpose."
+  },
+  {
+    "type": "heading",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "level": 1,
+    "content": "Reading order detection"
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "As defined in Section 2, the reading order is determined through the intermediate logical relation BeforeInReading. The possible reading orders are detected inde-pendently for each document object type Body and Title respectively. Then, these reading orders are combined using a Title-Body connection rule. This rule connects one Title with the left-most top-most Body object, situated below the Title."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "As indicated earlier, reading order is determined by both structure and content. Therefore, we exploit both sources of information to arrive at the total reading order structure of the document. For this purpose we built:"
+  },
+  {
+    "type": "bullet",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "a spatial reasoning (SpaRe) module based on the spatial relations TBRR;"
+  },
+  {
+    "type": "bullet",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "a Natural Language Processing (NLP) module based on lexical analysis."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Due to the generality of document knowledge we use, it is likely that we get more than one reading order, especially for complex documents with many text blocks."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "The two graphs of BeforeInReading relations are combined to extract the final reading order relation."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "As described in Section 2, the relations defined yield a directed graph. Using the assumption that only one reading order is present on a page, the reading order is a full path in this graph. As the graph is cyclic, the standard topological sort algorithm [12] for finding a full path in the graph cannot be used. We use instead a modified version of it [16]. To be precise, the nodes in the graph are sorted by the number of outgoing arrows of BeforeInReading relations. All nodes have to be reached once and only once."
+  },
+  {
+    "type": "heading",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "level": 1,
+    "content": "SpaRe: Spatial Reasoning Module"
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "In the spatial arrangement approach, the document knowledge (2a) and (2b) and the layout 2D interval relations are used as a set of constraints to determine the BeforeInReading logical relation [1]. These constraints are also solved in the Eclipse environment. The knowledge (2a) is encoded in the rule depicted in Figure 5 top. This states that the document object A is in BeforeInReading relation with the"
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "if( precedes_x(A,B) OR precedes_y(A,B) OR meets_x(A,B)   ORmeets_y(A,B) OR overlaps_x(A,B) OR overlaps_y(A,B))thenbeforeInReading(A,B)if( precedes_x(A,B) OR precedes_y(A,B) OR meets_x(A,B)   ORmeets_y(A,B) OR overlaps_x(A,B) OR overlaps_y(A,B))thenbeforeInReading(A,B)"
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "% VERTICAL COLUMNS %if(precedes_X(A, B) OR meets_X(A, B)OR(overlaps_X(A, B) AND ( precedes_Y(A,B)ORmeets_Y(A,B) OR overlaps_Y(A,B) ))OR((precedes_Y(A, B) OR meets_Y(A,B) OR overlaps_Y(A,B)) AND(precedes_X(A,B) OR meets_X(A,B) OR overlaps_X(A,B) OR starts_X(A,B) OR finishesi_X(A,B) OR equals_X(A,B)  ORduring_X(A,B)  ORduringi_X(A,B) OR finishes_X(A,B) OR startsi_X(A,B) OR overlapsi_X(A,B)))thenbeforeInReading(A,B)% VERTICAL COLUMNS %if(precedes_X(A, B) OR meets_X(A, B)OR(overlaps_X(A, B) AND ( precedes_Y(A,B)ORmeets_Y(A,B) OR overlaps_Y(A,B) ))OR((precedes_Y(A, B) OR meets_Y(A,B) OR overlaps_Y(A,B)) AND(precedes_X(A,B) OR meets_X(A,B) OR overlaps_X(A,B) OR starts_X(A,B) OR finishesi_X(A,B) OR equals_X(A,B)  ORduring_X(A,B)  ORduringi_X(A,B) OR finishes_X(A,B) OR startsi_X(A,B) OR overlapsi_X(A,B)))thenbeforeInReading(A,B)"
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "% HORIZONTAL COLUMNS %if(precedes_Y(A, B) OR meets_Y(A, B)OR (overlaps_Y(A, B) AND(precedes_X(A,B) OR meets_X(A,B) OR overlaps_X(A,B)) )OR((precedes_X(A, B) OR meets_X(A,B) OR overlaps_X(A,B)) AND(precedes_Y(A,B) OR meets_Y(A,B) OR overlaps_Y(A,B) OR starts_Y(A,B) OR finishesi_Y(A,B) OR equals_Y(A,B)  ORduring_Y(A,B)  ORduringi_Y(A,B) OR finishes_Y(A,B) OR startsi_Y(A,B) OR overlapsi_Y(A,B)) )thenbeforeInReading(A,B)% HORIZONTAL COLUMNS %if(precedes_Y(A, B) OR meets_Y(A, B)OR (overlaps_Y(A, B) AND(precedes_X(A,B) OR meets_X(A,B) OR overlaps_X(A,B)) )OR((precedes_X(A, B) OR meets_X(A,B) OR overlaps_X(A,B)) AND(precedes_Y(A,B) OR meets_Y(A,B) OR overlaps_Y(A,B) OR starts_Y(A,B) OR finishesi_Y(A,B) OR equals_Y(A,B)  ORduring_Y(A,B)  ORduringi_Y(A,B) OR finishes_Y(A,B) OR startsi_Y(A,B) OR overlapsi_Y(A,B)) )thenbeforeInReading(A,B)"
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "Figure 5: The BeforeInReading rules encoding the spatial reasoning constraints."
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "document object B, if either of the following TBRR relations px(A, B), py(A, B), mx(A, B), my(A, B), ox(A, B) or oy(A, B) holds."
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "Furthermore, we exploit document knowledge (2b) by considering two possible reading orders for every document:"
+  },
+  {
+    "type": "bullet",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "row-wise: text-blocks are read in rows from left-to-right, top- to-bottom"
+  },
+  {
+    "type": "bullet",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "column-wise: text-blocks are read in columns, from top-to-bottom and from left-to-right."
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "The rules for each reading direction are presented in Figure 5. Basically, the two directional rules, are both adding one specific constraint to the basic rule depicted"
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "in Figure 5 top. In the row-wise reading order the diagonal direction “left-bottom to top-right” cannot be present among the BeforeInReading relations allowed. In Eclipse [9] this is implemented by specifying all the other BeforeInReading relations that can occur and leave the non-allowed one out. Similarly, in the column-wise reading order the diagonal direction “right-top to bottom-left” cannot be present among the BeforeInReading relations allowed."
+  },
+  {
+    "type": "paragraph",
+    "section": "SpaRe: Spatial Reasoning Module",
+    "subsection": "SpaRe: Spatial Reasoning Module",
+    "content": "In Figure 6 the extracted logical relations BeforeInReading and the final reading order are shown for the document presented in Figure 3. The BeforeInReading relations presented in the graph are computed by the SpaRe module. From this two possible reading orders are detected. The correct one is shown on the right side."
+  },
+  {
+    "type": "heading",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "level": 1,
+    "content": "NLP: The Natural Language Processing Module"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "To extract the reading order from textual content, NLP is required. As we aim at generic analysis, we use shallow NLP tools, like taggers, which can contribute to the resolution of reading order ambiguities."
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "A tagger assigns a part-of-speech tag, such as DT (determiner: the, a), VBD (past tense verb: took, said ), SENT (sentence boundary: . ! ?), etc. to each word or punctuation sign. When this is done successfully document knowledge (2c) can be employed."
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "For determination of BeforeInReading relation we use a probabilistic approach. Let o and o' be two document objects, we want to determine the probability P (o o')"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "i.e. the probability that o and o' obey the BeforeInReading relation."
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "First, both objects are tagged and the last two tagged words ending and the first tagged word beginning objects o and o' are identified. We refer to the last two tags of an object o by t−2 and t−1 and to the first by t1. w−2, w−1, and w1, refer to the"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "oo"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "words themselves."
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "oooo"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "The restriction to sequences of length 3 is mainly due to the sparse data problem, where it can be expected that most training corpora are too small to assign reliable frequencies to infrequent sequences."
+  },
+  {
+    "type": "label",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "The likelihood of a tagged sequence is defined as:"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "P tttP ttt( −2 −1 1 )"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "P (t1 |t−2t−1) =ooo'"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "o'  oo"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "P (t−2t−1)"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "oo"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "P (t−2t−1t1 ) is computed by dividing the number of occurrences of the tag se-"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "ooo'"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "quence t−2t−1t1 in a pre-tagged training corpus by the number of all trigrams oc-"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "ooo'"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "currences. P (t−2t−1) is computed analogously. The reader is referred to [17] for a"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "oo"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "comprehensive introduction to statistical natural language modeling."
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "To decide the whole reading order of a document page with the textual objects o1 ... on the probability is computed as the product of the transition probabilities of all consecutive text objects:"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "YYn−1"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "P (o1,..., on) =P (oi, oi+1)"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "i=1"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "By computing probabilities it is also possible to rank the different reading orders."
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "The reading order with the highest probability is taken as the genuine one."
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "AIBHCDGFEAIBHCDGFE"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "ABCGDHEFIABCGDHEFIThe \"BeforeInReading\" relations"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "(A,B,C,D,E,F,G,H,I)(A,B,C,D,G,E,F,H,I)(A,B,C,D,E,F,G,H,I)(A,B,C,D,G,E,F,H,I)"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "The reading orders detectedThe correct reading order relation"
+  },
+  {
+    "type": "paragraph",
+    "section": "NLP: The Natural Language Processing Module",
+    "subsection": "NLP: The Natural Language Processing Module",
+    "content": "Figure 6: Exemplification of the logical relations. The BeforeInReading relations are computed by the SpaRe module. Here the relation involving element D are drawn solid. From these two reading orders were detected. The correct one is shown on the right side."
+  },
+  {
+    "type": "heading",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "level": 1,
+    "content": "Experiments"
+  },
+  {
+    "type": "paragraph",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "For experimentation we have used the data set MTDB [23] from the University of Oulu, Finland. The data set consists of scanned documents of various types: tech-nical journals, newspapers, magazines, etc. We only used the documents in English, resulting a data set of 34 documents having 171 pages. The MTDB data set has a ground truth (GT) at block level granularity. There is no explicit separation between the layout and logical structure. Every document objects has a layout label and a logical label. The reading order is also present in the ground truth. We consid-ered the layout information from the GT as the input to our system. As there is no ground truth for textual content and font information, we used the TextBridge OCR package [25] from ScanSoft to extract these. For evaluation purposes, the documents in the data set were split into three main groups, based on their complexity:"
+  },
+  {
+    "type": "bullet",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "trivial documents consisting of a limited set of document objects, in one-column format;"
+  },
+  {
+    "type": "bullet",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "regular documents with the number of document objects between 4 and 8 and text organized in two columns;"
+  },
+  {
+    "type": "bullet",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "complex documents with more than 8 document objects, organized in 2 or more column layout."
+  },
+  {
+    "type": "paragraph",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "Out of 171 document pages, 98 are of type trivial, 66 of type regular and 7 are of type complex."
+  },
+  {
+    "type": "bullet",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "(b)(c)(d)(e)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "Figure 7: Sample images from the MTDB data set."
+  },
+  {
+    "type": "paragraph",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "The system consists of two main modules: the logical object classification (LoC) module and the reading order detection (RoD) module. The reading order detection module consists of two components: the spatial reasoning module (SpaRe) and the natural language processing (NLP) module. Each module of the system was tested independently. In Figure 8 the data flow used for evaluation of the modules is shown."
+  },
+  {
+    "type": "paragraph",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "Reading order detection (RoD)MTDBdata setlayout structure-------------Ground Truth logical labelLogicalobject classification (LoC)SpatialReasoner (SpaRe)Lexicalanalysis (NLP)Logical StructureReading order detection (RoD)MTDBdata setlayout structure-------------Ground Truth logical labelLogicalobject classification (LoC)SpatialReasoner (SpaRe)Lexicalanalysis (NLP)Logical Structure"
+  },
+  {
+    "type": "paragraph",
+    "section": "Experiments",
+    "subsection": "Experiments",
+    "content": "Figure 8: The data flow in the various experiments considered."
+  },
+  {
+    "type": "heading",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "level": 1,
+    "content": "Evaluation criteria"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "To evaluate the individual modules and the system as a whole, we use standard measures from Information Retrieval [4]: precision and recall. The two measures are defined for each module."
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "The LoC module assigns a label to an object and is evaluated by considering the number of misclassifications. The precision and recall are defined for every logical type i = {Body, Caption, Title, Page number} by:"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "p = | Ci ∩ GTi |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "i| Ci |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "r = | Ci ∩ GTi |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "i| GTi |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "(1)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "where Ci represents the set of document objects classified by the LoC module as logical objects of type i and GTi represents the set of document objects of logical type i conform the ground truth. Both precision and recall have values in the range [0, 1]. The precision pi gets value 1 if all document objects classified as type i by the LoC module are actually of type i in the ground truth. Consequently, pi gets value 0 if none of the document objects classified as type i are actually of type i in the ground truth. The recall ri gets value 1 if all document objects of type i in the ground-truth, are classified correctly. Consequently ri gets value 0 if none of the document objects of type i is classified as type i."
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "The average precision and recall computed from the four individual measures are the overall performance measures of the LoC module."
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "The goal of the RoD module is to find among all possible orders of the blocks the single one that corresponds to the reading order. In the RoD module each of the two components was tested in isolation to assess its performances."
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "The set of reading orders detected (D) is compared to the ground truth. For a number of documents, the ground truth defines independent reading orders on non-intersecting subsets of the textual objects within the same document; e.g., a page containing two different articles or independent text blocks such as information about the authors of an article, as exemplified by Figure 7.d. Since both components return total reading orders, we consider a reading order correct if it is identical to at least one permutation of the independent reading orders as defined in the ground truth. We refer to the set of permutations of the ground truth as the set of correct reading orders (CRO). Then, the precision and recall are defined as follows:"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "| D ∩ CRO |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "p =| D |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "| D ∩ CRO |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "r =| CRO |"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "(2)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "The precision value lies between 0 and 1 inclusive, where 0 indicates that the correct reading is not among the reading orders detected, 1 indicates that there is exactly one reading order and it is correct, and any other value indicates the degree of uncertainty of the RoD module. Because there is only one reading order, the recall can only be 1 if the correct reading is among the ones detected, or 0 if it is not."
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation criteria",
+    "subsection": "Evaluation criteria",
+    "content": "In the following we present the experiments and evaluation performed for each of the two modules of the document understanding system."
+  },
+  {
+    "type": "heading",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "level": 1,
+    "content": "Logical object classification"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "For classification of logical objects, we use the statistical pattern recognition package MLC++ [13] developed at the Standford University and SGI. This contains imple-mentation of various decision tree classifiers. We used the C4.5 decision tree, which can handle heterogeneous feature vectors consisting of enumerated and continuos values."
+  },
+  {
+    "type": "bullet",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "(b)(c)(d)(e)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "Figure 9: Examples of reading orders detected. (a) The original document image."
+  },
+  {
+    "type": "bullet",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "and (c) the reading orders detected by the SpaRe module. The NLP module indicate that the correct reading order is the one presented in (b). For the document in (d) the correct reading order (e) was already detected by the SpaRe component with no use of the NLP component."
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "In the document data set, 894 different document objects are present. Of those, 520 document objects are Body Text, 135 Caption, 166 Page Number, and 73 Title. For selection of the training and test sets we used the leave-one-out with rotation method presented in [10]. This is the most appropriate method for the size of our data set."
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "The classification results are shown in Table 2 and Table 3."
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "Table 2: The precision and recall for the LoC module."
+  },
+  {
+    "type": "table",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": [
+      [
+        "Type",
+        "GT",
+        "p",
+        "r"
+      ],
+      [
+        "Body",
+        "520",
+        "0.97",
+        "0.93"
+      ],
+      [
+        "Caption",
+        "135",
+        "0.85",
+        "0.82"
+      ],
+      [
+        "PagNr",
+        "166",
+        "0,96",
+        "0.97"
+      ],
+      [
+        "Title",
+        "73",
+        "0.70",
+        "0.94"
+      ],
+      [
+        "Total",
+        "894",
+        "0.87",
+        "0.91"
+      ]
+    ]
+  },
+  {
+    "type": "paragraph",
+    "section": "Logical object classification",
+    "subsection": "Logical object classification",
+    "content": "From these tables, one can conclude that for the LoC module, out of 894 docu-ment objects, only 14 were not classified correctly. For Page Number we obtained more than 99% accuracy, see Table 3."
+  },
+  {
+    "type": "heading",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "level": 1,
+    "content": "Reading order detection"
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Due to memory and speed considerations, in our final experiments we have consid-ered first the BeforeInReading relation using the SpaRe module, and in case more than one reading order was detected, we then checked the consistency with the NLP module."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Table 3: The confusion matrix of the classification process."
+  },
+  {
+    "type": "table",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": [
+      [
+        "%",
+        "Body",
+        "Caption",
+        "PageNo",
+        "Title"
+      ],
+      [
+        "Body",
+        "97.88",
+        "1.53",
+        "0.00",
+        "0.57"
+      ],
+      [
+        "Caption",
+        "4.44",
+        "94.07",
+        "1.40",
+        "0.00"
+      ],
+      [
+        "PageNo",
+        "0.60",
+        "0.00",
+        "99.39",
+        "0.00"
+      ],
+      [
+        "Title",
+        "6.84",
+        "2.73",
+        "0.00",
+        "90.41"
+      ]
+    ]
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "ContentSize Estimated error: 6.95% (446)<= 5> 5PAGE NUMBEREstimated error: 2.41% (83)ContentSize Estimated error: 7.99% (363)<= 80> 80Neighbor2Fig Estimated error: 20.51% (78)FontSizeRatio Estimated error: 4.56% (285)yn<= 0.800000011921> 0.800000011921FontSizeRatio Estimated error: 12.82% (39)TITLEEstimated error: 28.21% (39)CAPTIONEstimated error: 0.00% (16)FontStyle Estimated error: 4.83% (269)<= 1> 1BIRCAPTIONEstimated error: 15.15% (33)TITLEEstimated error: 0.00% (6)CAPTIONEstimated error: 40.00% (5)TEXT BODYEstimated error: 0.00% (3)AspectRatio Estimated error: 4.21% (261)<= 2.192600011826> 2.192600011826TEXT BODYEstimated error: 0.00% (148)Neighbor2Fig Estimated error: 9.73% (113)ynAspectRatio Estimated error: 25.00% (36)TEXT BODYEstimated error: 2.60% (77)<= 10.715200424194> 10.715200424194AspectRatio Estimated error: 28.57% (28)CAPTIONEstimated error: 12.50% (8)<= 3.118000030518> 3.118000030518TEXT BODYEstimated error: 0.00% (8)AreaRatio Estimated error: 40.00% (20)<= 0.035000000149> 0.035000000149TEXT BODYEstimated error: 40.00% (15)AreaRatio Estimated error: 40.00% (5)<= 0.045699998736> 0.045699998736CAPTIONEstimated error: 50.00% (2)AspectRatio Estimated error: 33.33% (3)<= 3.285300016403> 3.285300016403CAPTIONEstimated error: ?TEXT BODYEstimated error: 33.33% (3)ContentSize Estimated error: 6.95% (446)<= 5> 5PAGE NUMBEREstimated error: 2.41% (83)ContentSize Estimated error: 7.99% (363)<= 80> 80Neighbor2Fig Estimated error: 20.51% (78)FontSizeRatio Estimated error: 4.56% (285)yn<= 0.800000011921> 0.800000011921FontSizeRatio Estimated error: 12.82% (39)TITLEEstimated error: 28.21% (39)CAPTIONEstimated error: 0.00% (16)FontStyle Estimated error: 4.83% (269)<= 1> 1BIRCAPTIONEstimated error: 15.15% (33)TITLEEstimated error: 0.00% (6)CAPTIONEstimated error: 40.00% (5)TEXT BODYEstimated error: 0.00% (3)AspectRatio Estimated error: 4.21% (261)<= 2.192600011826> 2.192600011826TEXT BODYEstimated error: 0.00% (148)Neighbor2Fig Estimated error: 9.73% (113)ynAspectRatio Estimated error: 25.00% (36)TEXT BODYEstimated error: 2.60% (77)<= 10.715200424194> 10.715200424194AspectRatio Estimated error: 28.57% (28)CAPTIONEstimated error: 12.50% (8)<= 3.118000030518> 3.118000030518TEXT BODYEstimated error: 0.00% (8)AreaRatio Estimated error: 40.00% (20)<= 0.035000000149> 0.035000000149TEXT BODYEstimated error: 40.00% (15)AreaRatio Estimated error: 40.00% (5)<= 0.045699998736> 0.045699998736CAPTIONEstimated error: 50.00% (2)AspectRatio Estimated error: 33.33% (3)<= 3.285300016403> 3.285300016403CAPTIONEstimated error: ?TEXT BODYEstimated error: 33.33% (3)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Figure 10: The decision tree automatically generated by the MLC++. For simplicity in this figure, we use half of the data set for training and half for testing. The decision tree obtained on a larger training set would not fit on a page. In each node one can see the feature name or the logical label for leaves. In parenthesis the actual number of document objects, from the test data set, that enters the tree node is displayed. The second line shows the estimated errors for the test set."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "The RoD module uses Body and Title blocks therefore it requires the label of an object. First, the RoD module is evaluated using the logical lables as defined in the ground truth from the dataset. The results are presented in Table 4. In a second experiment the logical objects are taken from the LoC module. The results are presented in Table 5. The evaluation is in terms of the average precision and recall defined in Equation 2."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Table 4: Experimental results of the RoD module using the input from the ground truth."
+  },
+  {
+    "type": "table",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": [
+      [
+        "Documentgroup",
+        "SpaRepr",
+        "NLPpr"
+      ],
+      [
+        "trivial",
+        "0.97",
+        "0.99",
+        "1.00",
+        "1.00"
+      ],
+      [
+        "regular",
+        "0.77",
+        "0.98",
+        "0.73",
+        "0.73"
+      ],
+      [
+        "complex",
+        "0.87",
+        "1.00",
+        "1.00",
+        "1.00"
+      ],
+      [
+        "average",
+        "0.88",
+        "0.99",
+        "0.79",
+        "0.79"
+      ]
+    ]
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "To be more precise, the SpaRe module detected 192 reading orders for the 171 document pages in the data set. For 18 documents 2 reading orders were detected, instead of one. In one case, none of the two reading orders detected was correct. For one document 4 possible reading orders were detected and none of them was correct. For the rest of 152 document, the SpaRe module detected correctly one reading order only."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "The NLP component analyses only the 19 document pages for which more than one reading order was detected. From these pages, in 15 cases the NLP module detected the correct reading order. For the remaining 4 cases, in one case the NLP failed because the input was already wrong - the page with 4 possible reading orders, all wrong. One page had all text blocks starting with a capital letter and ending with termination sign. And the other 2 pages did not have the maximum trigrams probability for the correct reading order but for the other one. This was caused by OCR errors in the sensitive “begin” and “end” sentences of the text blocks."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Table 5: Experimental results of the RoD module using the input from the LoC module."
+  },
+  {
+    "type": "table",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": [
+      [
+        "Documentgroup",
+        "SpaRepr",
+        "NLPpr"
+      ],
+      [
+        "trivial",
+        "0.92",
+        "0.94",
+        "0.67",
+        "0.67"
+      ],
+      [
+        "regular",
+        "0.72",
+        "0.92",
+        "0.67",
+        "0.67"
+      ],
+      [
+        "complex",
+        "0.85",
+        "1.00",
+        "1.00",
+        "1.00"
+      ],
+      [
+        "average",
+        "0.83",
+        "0.93",
+        "0.68",
+        "0.68"
+      ]
+    ]
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "As expected, when the reading order detection modules are applied on the results of the LoC module, the precision and recall degrade. Here the misclassification of"
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Body and Title are important, as these are the only document objects considered for the reading order. It is also important where these misclassification errors occur. If all misclassifications occur on a single page, then only one reading order is going to be affected. In the worst case, the misclassifications are spread one per page in all dataset and, theoretically, the number of errors in reading order detection will increase with the number of misclassifications. In our experiments, the number of pages for which the correct reading order was not detected, in case we use the classification results from LoC module, is 11. Thus, 9 more than before. This decreases the precision from 0.88 to 0.83 and the recall from 0.99 to 0.93 for the SpaRe module. Again, the NLP module analyses only the documents for which more than one reading orders were detected. There were 18 pages with 2 possible reading orders and one page with 4 possible reading orders detected by the SpaRe module. From these, for 6 pages the NLP could not detect the correct reading order. Three of them are among the 11 pages the SpaRe module could not detect the correct reading order. And this is because the LoC module misclassified some of the text document objects. Therefore, the NLP module could not improve that. For other two pages, all the text blocks start with a capital letter and ends with a termination sign. The shallow NLP module does not treat this situation."
+  },
+  {
+    "type": "paragraph",
+    "section": "Reading order detection",
+    "subsection": "Reading order detection",
+    "content": "Examples of the reading orders detected are presented in Figure 9."
+  },
+  {
+    "type": "heading",
+    "section": "Evaluation of the entire system",
+    "subsection": "Evaluation of the entire system",
+    "level": 1,
+    "content": "Evaluation of the entire system"
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation of the entire system",
+    "subsection": "Evaluation of the entire system",
+    "content": "The evaluation of the entire system is presented in Table 6. The same evaluation measures as for assessing the individual components are used. For reading order, the total numbers are considered, after applying both SpaRe and NLP components. For the total number of 171 pages, 192 reading orders were detected. In the final results, for 14 pages the correct reading order was not detected."
+  },
+  {
+    "type": "paragraph",
+    "section": "Evaluation of the entire system",
+    "subsection": "Evaluation of the entire system",
+    "content": "Table 6: Experimental results of the system."
+  },
+  {
+    "type": "table",
+    "section": "Evaluation of the entire system",
+    "subsection": "Evaluation of the entire system",
+    "content": [
+      [
+        "",
+        "LoCpr",
+        "RoDpr"
+      ],
+      [
+        "average",
+        "0.870.91",
+        "0.820.92"
+      ]
+    ]
+  },
+  {
+    "type": "heading",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "level": 1,
+    "content": "Discussion"
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "Given the goal of our system to process heterogeneous documents, the results pre-sented are remarkably positive. The errors made are exactly due to the presence of document classes not obeying the generic knowledge assumption. One can tune the system to get less error for the given data set, but then the generalization power is lost, and the system becomes too specific."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "Most of the errors are confusions among Body, Caption and Title objects. There are three main reasons for these errors."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "(a)(b)(c)(d)"
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "Figure 11: Examples of pages for which the classification of logical objects fails. (a) The Caption is not neighbor to the image. (b) The Caption looks very much like a Body-Text. (c) The Body-Text on top left corner looks like a Title. (d) For top right Title the Font-Size-Ratio is 1, and all the other features, are similar to a Body Text."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "Firstly, the generic knowledge assumptions are not met for some documents. For instance, there are documents where the Caption is not a neighbor to a Picture. Between Caption and Picture rulers or lines were placed. See Figure 11 (a)."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "Secondly, the variety of document classes, makes the feature description of doc-ument objects less discriminative. For instance the presence of Caption document objects with Bold and Regular font style, with smaller and larger font size in different documents, increases the confusion rate."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "The third reason for misclassification is the OCR inaccuracy, specifically the font characteristic detection. The font features Font-Size-Ratio and Font-Style are affected most. The errors made in character confusion by the OCR do not affect the LoC module, but they do influence the performance of the NLP module."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "In Figure 11 some representative pages are presented, where the logical objects classification fails, for the above mentioned reasons."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "For two pages out of 171, the SpaRe component did not detect the correct reading order. For both pages the reason for failure is the rule connecting the title to the body-reading orders. This rule is appropriate for Main Title but not for (Sub)Section Title. Two specific rules should be made for main titles and section titles. In our current system, we do not make such distinctions."
+  },
+  {
+    "type": "paragraph",
+    "section": "Discussion",
+    "subsection": "Discussion",
+    "content": "For the NLP module, had to resolve the ambiguous situations where two or more reading orders were detected by the SpaRe module. If one exclude from its input, the pages where none of the possible reading orders detected by SpaRe module is correct, the average precision of the NLP module is 0.84. The errors made by the NLP module are caused by the OCR errors, and limitation of the shallow NLP tools, which cannot solve situations where all the text blocks start with a capital letter and ends with a termination sign."
+  },
+  {
+    "type": "heading",
+    "section": "Conclusion",
+    "subsection": "Conclusion",
+    "level": 1,
+    "content": "Conclusion"
+  },
+  {
+    "type": "paragraph",
+    "section": "Conclusion",
+    "subsection": "Conclusion",
+    "content": "We have proposed a document understanding system that uses generic document knowledge for detecting the logical structure of a broad class of documents. Given the layout structure of a document, geometric information, textual features and content are used to classify the logical objects and to detect the reading order with reasonable accuracy."
+  },
+  {
+    "type": "paragraph",
+    "section": "Conclusion",
+    "subsection": "Conclusion",
+    "content": "The main contribution of this approach is its generality. Virtually nothing is assumed about the input document. The knowledge used is generic and applies to broad classes of documents. The current implementation is able to process English documents only, but it can be easily adapted to other languages. This limitation is imposed by the NLP component, which currently uses the part-of-speech tagger for English. To process documents written in other languages, one has only to use the proper part-of-speech tagger."
+  },
+  {
+    "type": "paragraph",
+    "section": "Conclusion",
+    "subsection": "Conclusion",
+    "content": "The generic knowledge used in the spatial reasoning (SpaRe) component refers to the western culture, where reading order is from left-to-right and top-to-down. To adapt our system to other cultures, one has to rewrite the BeforeInReading rules described in Section 3.3.1, not to redesign the entire system."
+  },
+  {
+    "type": "paragraph",
+    "section": "Conclusion",
+    "subsection": "Conclusion",
+    "content": "The methods presented are a major step towards a full document understanding system in which all information sources are employed. The natural next step is to use domain specific information sources to further push the understanding of the document."
+  },
+  {
+    "type": "heading",
+    "section": "References",
+    "subsection": "References",
+    "level": 1,
+    "content": "References"
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "M. Aiello, C. Monz, and L. Todoran. Combining linguistic and spatial informa-tion for document analysis. In J. Mariani and D. Harman, editors, Proceedings of RIAO’2000 Content-Based Multimedia Information Access, pages 266–275. CID, 2000."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "J. Allen. Maintaining knowledge about temporal intervals. Communications of the ACM, 26:832–843, 1983."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "F. Aurenhammer. Voronoi diagrams–a survey of a fundamental geometric data structure. ACM Computing Surveys, 23(3):345–405, 1991."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "R. Baeza-Yates and B. Ribeiro-Neto. Modern Information Retrieval. Addison Wesley, 1999."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "P. Balbiani, J. Condotta, and L. Farin˜as del Cerro.  A model for reason-ing about bidimensional temporal relations. In A. Cohn, L. Schubert, and"
+  },
+  {
+    "type": "paragraph",
+    "section": "References",
+    "subsection": "References",
+    "content": "S. Shapiro, editors, Proceedings of the 6th International Conference on Prin-ciples of Knowledge Representation and Reasoning (KR’98), pages 124–130. Morgan Kaufmann, 1998."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "F. Cesarini, E. Francesconi, M. Gori, and G. Soda. A two level knowledge approach for understanding documents of a multi-class domain. In ICDAR’99, pages 135–138, Bangalore, India, 1999. IEEE."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "F. Cesarini, M. Gori, S. Marinai, and G. Soda. Informys: A flexible invoice-like form-reader system. IEEE Transactions on PAMI, 20(7):730–746, July 1998."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "A. Dengel and F. Dubiel. Logical labeling of document images based on form layout features. In Proc. of the 1997 Workshop on Document Image Analysis, DIA’97, pages 26–31, Ulm, Germany, 1997."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Eclipse  Constraint  Logic  Programming  System.http://www-icparc.doc.ic.ac.uk/eclipse."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "A.K. Jain, P.W. Duin, and J. Mao. Statistical pattern recognition: A review."
+  },
+  {
+    "type": "paragraph",
+    "section": "References",
+    "subsection": "References",
+    "content": "IEEE Transactions on PAMI, 22(1):4–37, 2000."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "S. Klink, A. Dengel, and T. Kieninger. Document structure analysis based on layout and textual features. In Proc. of Fourth IAPR International Workshop on Document Analysis Systems, DAS2000, pages 99–111, Rio de Janeiro, Brazil, 2000."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "D.E. Knuth. The art of computer programming. AddisonWesley, 1973."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "R. Kohavi, D. Sommerfield, and J. Dougherty. Data mining using MLC++: A machine learning library in C++. In Proceedings of the 8th Interna-tional Conference on Tools with Artiﬁcial Intelligence., pages 234–245, 1996. http://www.sgi.com/Technology/mlc."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "K.H. Lee, Y.C. Choy, and S.B. Cho. Geometric structure analsysis of document images: A knowledge approach. IEEE Transactions on PAMI, 22(11):1224–1240, 2000."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "X. Li and P.A. Ng. A document classification an extraction system with learning ability. In ICDAR’99, pages 197–200, Bangalore, India, 1999."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "M. Aiello. Sorting Cyclic Directed Graphs. Manuscript."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "C. Manning and H. Schu¨tze. Foundations of Statistical Natural Language Pro-cessing. MIT Press, 1999."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "G. Nagy. Twenty years of document image analysis in PAMI. IEEE Trans. Pattern Analysis and Machine Intelligence, 22(1):38–62, 2000."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "G. Nagy and S. Seth. Hierarchical representation of optically scanned docu-ments. In Proceedings of ICPR, pages 350–369, 1984."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "D. Niyogi and S.N. Srihari. Using domain knowledge to derive logical structure of documents. In Proceedings of SPIE, Document Recognition and Retrieval III., pages 114–125, San Jose, California, 1996."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "G.I. Sainz Palmero and Y.A. Dimitriadis. Structured document labeling and rule extraction using a new recurent fuzzy-neural system. In ICDAR’99, pages 181–184, Bangalore, India, 1999."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "J.R. Quinlan. C4.5 : Programs for Machine Learning. Morgan Kaufmann, 1993."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "J. Sauvola and H. Kauniskangas. MediaTeam Document Database II. CD-ROM collection of document images, University of Oulu, Finland. http://www.mediateam.oulu.fi/MTDB/index.html."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "C.K. Shin and D.S. Doermann. Classification of document page images based on visual similarity on layout structures. In Proc. SPIE Vol. 3967, Document Recognition and Retrieval VII, D.P. Lopresti; J. Zhou; Eds., pages 182–190, San Jose, California, 2000."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "TextBridge SDK 4.5. http://www.scansoft.com."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "L. Todoran, M. Aiello, C. Monz, and M. Worring. Logical structure detection for hetrogeneous document classes. In Proc. SPIE Vol. 3407, Document Recognition and Retrieval VIII, P.B. Kantor, D.P. Lopresti, J. Zhou Eds., pages 99–111, San Jose, California, 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "S. Tsujimoto and H. Asada. Major Components of a Complete Text Reading System. Proceedings of the IEEE, 80(7):1133–1149, 1992."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "H. Walischewski. Automatic knowledge acquisition for spatial document inter-pretation. In Proceedings of the 4th ICDAR, pages 243–247, Ulm, Germany, 1997."
+  },
+  {
+    "type": "heading",
+    "section": "Acknowledgements",
+    "subsection": "Acknowledgements",
+    "level": 1,
+    "content": "Acknowledgements"
+  },
+  {
+    "type": "paragraph",
+    "section": "Acknowledgements",
+    "subsection": "Acknowledgements",
+    "content": "Leon Todoran is supported by Senter den Haag and Oc´e Technologies BV, Venlo (IOP project IBV 96008). Marco Aiello is supported in part by the Italian National Research Council (CNR), grant 203.15.10. Christof Monz is supported by the Phys-ical Sciences Council with financial support from the Netherlands Organization for Scientific Research (NWO), project 612-13-001."
+  },
+  {
+    "type": "heading",
+    "section": "ISIS reports",
+    "subsection": "ISIS reports",
+    "level": 1,
+    "content": "ISIS reports"
+  },
+  {
+    "type": "paragraph",
+    "section": "ISIS reports",
+    "subsection": "ISIS reports",
+    "content": "This report is in the series of ISIS technical reports. The series editor is Rein van den Boomgaard (rein@science.uva.nl). Within this series the following titles are available:"
+  },
+  {
+    "type": "heading",
+    "section": "References",
+    "subsection": "References",
+    "level": 1,
+    "content": "References"
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Marcel Worring and Theo Gevers. Interactive retrieval of color images. Technical Report 2001-08, Intelli-gent Sensory Information Systems Group, University of Amsterdam, June 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Jan-Mark Geusebroek, Minh Anh Hoang, Jan van Gemert, and Mar-cel Worring. Searching for images in biomedical publications. Technical Report 2001-09, Intelligent Sensory Information Systems Group, Uni-versity of Amsterdam, July 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Andrew D. Bagdanov and Mar-cel Worring. First order gaussian graphs for efficient structure classi-fication. Technical Report 2001-10, Intelligent Sensory Information Sys-tems Group, University of Amster-dam, August 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Sennay Ghebreab and Arnold W.M. Smeulders. Strings: Variational de-formable models of multivariate or-dered features. Technical Report 2001-11, Intelligent Sensory Infor-mation Systems Group, University of Amsterdam, September 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Sennay Ghebreab and Arnold W.M. Smeulders. Medical image segmen-tation by strings. Technical Report 2001-12, Intelligent Sensory Infor-mation Systems Group, University of Amsterdam, September 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Andrew D. Bagdanov, Marcel Wor-ring, and Arnold Smeulders. Search-ing in document images: what does the appearance of a document tell us about what it means? Technical Re-port 2001-13, Intelligent Sensory In-formation Systems Group, Univer-sity of Amsterdam, October 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Jan-Mark  Geusebroek,   Arnold"
+  },
+  {
+    "type": "paragraph",
+    "section": "References",
+    "subsection": "References",
+    "content": "W. M. Smeulders, and Joost van de Weijer. Fast anisotropic gauss filtering. Technical Report 2001-14, Intelligent Sensory Information Systems Group, University of Amsterdam, October 2001."
+  },
+  {
+    "type": "bullet",
+    "section": "References",
+    "subsection": "References",
+    "content": "Leon Todoran, Marco Aiello, Marcel Worring, and Christof Monz. Doc-ument understanding for a broad class of documents. Technical Re-port 2001-15, Intelligent Sensory In-formation Systems Group, Univer-sity of Amsterdam, October 2001."
+  },
+  {
+    "type": "paragraph",
+    "section": "References",
+    "subsection": "References",
+    "content": "You may order copies of the ISIS technical reports from the corresponding author or the series editor. Most of the reports can also be found on the web pages of the ISIS  group  (http://www.science.uva.nl/research/isis)."
+  }
+]

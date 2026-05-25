@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 from prompts import SYSTEM_PROMPT, build_user_message
+from validator import validate_all, print_validation_summary
 
 load_dotenv()
 client = OpenAI()
@@ -209,11 +210,26 @@ def run_extraction(
     # ── step 3: renumber cleanly ───────────────────────────────────────────
     all_requirements = renumber(all_requirements)
 
+    # added later
+    print("\n  Validating requirements...")
+    all_requirements, stats = validate_all(all_requirements)
+    print_validation_summary(all_requirements, stats)
+
     # ── step 4: save ───────────────────────────────────────────────────────
     Path(output_path).write_text(
         json.dumps(all_requirements, indent=2, ensure_ascii=False),
         encoding="utf-8"
     )
+
+    # save only clean ones separately for test generation
+    clean_only = [r for r in all_requirements if not r.get("_needs_review")]
+    Path("data/requirements_clean.json").write_text(
+        json.dumps(clean_only, indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
+    print(f"\n  All  → data/requirements.json       ({len(all_requirements)})")
+    print(f"  Clean → data/requirements_clean.json ({len(clean_only)})")
 
     # ── step 5: summary ────────────────────────────────────────────────────
     by_cat = {}

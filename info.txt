@@ -1,0 +1,38 @@
+uv add python-docx openai python-dotenv tiktoken pytest pytest-asyncio httpx
+
+OPENAI_API_KEY=sk-your-key-here
+
+{
+    git-ignore :
+        .env
+        .venv/
+        __pycache__/
+        data/blocks.json
+        data/chunks.json
+        data/requirements.json
+        generated_tests/
+}
+
+
+
+
+
+
+# full run — reads doc, extracts, validates, asks you to review, generates
+uv run python pipeline.py --input data/your_document.docx
+
+# stop after extraction so you can review requirements.json first
+uv run python pipeline.py --input data/your_document.docx --stage extract
+
+# after reviewing, generate tests
+uv run python pipeline.py --stage generate
+
+# if it crashed midway through extraction, resume from checkpoint
+uv run python pipeline.py --input data/your_document.docx --resume
+
+# skip the review gate (for CI/automation)
+uv run python pipeline.py --input data/your_document.docx --no-gate
+
+
+
+uv run python pipeline.py --input data/input/your_document.docx

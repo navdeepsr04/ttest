@@ -102,21 +102,53 @@ def build(
         doc = f"{req.get('title', '')}. {req.get('description', '')}"
         documents.append(doc)
 
-    print(f"  Storing {len(ids)} requirements in ChromaDB...")
+    # print(f"  Storing {len(ids)} requirements in ChromaDB...")
 
-    # ChromaDB has a limit per upsert — batch it
+    # # ChromaDB has a limit per upsert — batch it
+    # batch_size = 50
+    # for i in range(0, len(ids), batch_size):
+    #     collection.upsert(
+    #         ids         = ids[i : i + batch_size],
+    #         embeddings  = embeddings[i : i + batch_size],
+    #         metadatas   = metadatas[i : i + batch_size],
+    #         documents   = documents[i : i + batch_size],
+    #     )
+
+    # count = collection.count()
+    # print(f"  Stored {count} requirements in ChromaDB at {CHROMA_PATH}")
+    # return count          # error 
+
+    # deduplicate IDs before storing — safety net
+    seen_ids = {}
+    clean_ids, clean_embeddings, clean_metadatas, clean_documents = [], [], [], []
+
+    for uid, emb, meta, doc in zip(ids, embeddings, metadatas, documents):
+        if uid in seen_ids:
+            # make unique by appending a counter
+            counter = seen_ids[uid] + 1
+            seen_ids[uid] = counter
+            uid = f"{uid}_{counter}"
+        else:
+            seen_ids[uid] = 0
+
+        clean_ids.append(uid)
+        clean_embeddings.append(emb)
+        clean_metadatas.append(meta)
+        clean_documents.append(doc)
+
+    if len(clean_ids) != len(ids):
+        print(f"  ⚠ Deduplicated {len(ids) - len(clean_ids)} duplicate IDs")
+
+    print(f"  Storing {len(clean_ids)} requirements in ChromaDB...")
+
     batch_size = 50
-    for i in range(0, len(ids), batch_size):
+    for i in range(0, len(clean_ids), batch_size):
         collection.upsert(
-            ids         = ids[i : i + batch_size],
-            embeddings  = embeddings[i : i + batch_size],
-            metadatas   = metadatas[i : i + batch_size],
-            documents   = documents[i : i + batch_size],
+            ids        = clean_ids[i : i + batch_size],
+            embeddings = clean_embeddings[i : i + batch_size],
+            metadatas  = clean_metadatas[i : i + batch_size],
+            documents  = clean_documents[i : i + batch_size],
         )
-
-    count = collection.count()
-    print(f"  Stored {count} requirements in ChromaDB at {CHROMA_PATH}")
-    return count
 
 
 # ── search ────────────────────────────────────────────────────────────────────

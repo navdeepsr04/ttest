@@ -29,7 +29,7 @@ from pathlib import Path
 from preprocess.doc_reader      import extract_blocks,    print_summary  as reader_summary,  save_blocks
 from preprocess.chunker         import group_into_chunks, print_summary  as chunker_summary, save_chunks
 from preprocess.extractor       import extract_from_chunk, deduplicate,  renumber
-from validator       import validate_all,       print_validation_summary
+from preprocess.validator       import validate_all,       print_validation_summary
 from test_generator  import run_generation
 
 

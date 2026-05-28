@@ -222,29 +222,74 @@ def filter_requirements(
         chunk_kept = 0
         chunk_skip = 0
 
+        # for item in items:
+        #     action = item.get("action", "keep")
+
+        #     if action == "skip":
+        #         reason = item.get("reason", "")
+        #         chunk_skip += 1
+        #         skipped.append({
+        #             "id":     req_id,
+        #             "reason": reason,
+        #         })
+
+        #     else:
+        #         # validate
+        #         ok, err = validate_keep(item)
+        #         if not ok:
+        #             print(f"\n    ⚠ validation failed for {req_id}: {err}")
+        #             errors.append(req_id)
+        #             continue
+
+        #         # clean up — remove action field from output
+
+        #         # item.pop("action", None)
+
+                
+
+        #         # ensure hints is a list
+        #         if "hints" not in item:
+        #             item["hints"] = []
+        #         if isinstance(item["hints"], str):
+        #             item["hints"] = [item["hints"]]
+        #         item["hints"] = item["hints"][:3]
+
+        #         kept.append(item)
+        #         chunk_kept += 1
+
+        # track how many items come from each original ID
+        id_counter = {}
+
         for item in items:
             action = item.get("action", "keep")
 
             if action == "skip":
                 reason = item.get("reason", "")
                 chunk_skip += 1
-                skipped.append({
-                    "id":     req_id,
-                    "reason": reason,
-                })
-
+                skipped.append({"id": req_id, "reason": reason})
             else:
-                # validate
                 ok, err = validate_keep(item)
                 if not ok:
                     print(f"\n    ⚠ validation failed for {req_id}: {err}")
                     errors.append(req_id)
                     continue
 
-                # clean up — remove action field from output
                 item.pop("action", None)
 
-                # ensure hints is a list
+                # guarantee unique ID
+                base_id = item.get("id", req_id)
+                if base_id not in id_counter:
+                    id_counter[base_id] = 0
+                else:
+                    id_counter[base_id] += 1
+                    suffix = chr(ord('a') + id_counter[base_id])
+                    item["id"] = f"{base_id}{suffix}"
+
+                # also check against ALL already kept IDs globally
+                existing_ids = {k["id"] for k in kept}
+                if item["id"] in existing_ids:
+                    item["id"] = f"{item['id']}_{i}"
+
                 if "hints" not in item:
                     item["hints"] = []
                 if isinstance(item["hints"], str):

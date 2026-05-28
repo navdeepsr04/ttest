@@ -7,7 +7,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from prompts import SYSTEM_PROMPT, build_user_message
+from preprocess.prompts import SYSTEM_PROMPT, build_user_message
 from validator import validate_all, print_validation_summary
 
 load_dotenv()

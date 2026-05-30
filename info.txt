@@ -36,3 +36,42 @@ uv run python pipeline.py --input data/your_document.docx --no-gate
 
 
 uv run python pipeline.py --input data/input/your_document.docx
+
+
+
+
+
+
+
+
+
+
+
+# ── ONCE per document ──────────────────────────────────────────────────────
+
+# load first doc
+uv run python -m preprocess.doc_pipeline --input data/input/tsne_srs.docx --doc-id tsne --node TSNENode
+
+# load second doc
+uv run python -m preprocess.doc_pipeline --input data/input/klarf_srs.docx --doc-id klarf --node KlarfReaderNode
+
+# load any new doc (just run same command with new doc-id)
+uv run python -m preprocess.doc_pipeline --input data/input/pca_srs.docx --doc-id pca --node PCANode
+
+
+# ── ONCE for codebase ──────────────────────────────────────────────────────
+
+uv run python -m ci.ast_parser analytics-app/backend/kai/nodes/
+uv run python -m ci.graph_builder --rebuild
+
+
+# ── PER PR / user request ──────────────────────────────────────────────────
+
+# by node
+uv run python -m ci.output_builder --node KlarfReaderNode
+
+# by file
+uv run python -m ci.output_builder --file analytics-app/backend/kai/nodes/klarf_reader/klarf_reader.py
+
+# by function
+uv run python -m ci.output_builder --function KlarfReaderNode.execute
